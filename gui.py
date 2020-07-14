@@ -1,4 +1,5 @@
 import tkinter as tk
+import model
 
 class Window(tk.Frame):
 	def __init__(self, root=None):
@@ -19,7 +20,7 @@ class Window(tk.Frame):
 		self.canvas.unbind('<Motion>')
 		self.canvas.unbind('<ButtonPress>')
 		self.canvas.unbind('<ButtonRelease>')
-		# TODO call neural net
+		model.predict(self.matrix_coords, self.canvas.winfo_height(), self.canvas.winfo_width())
 		self.canvas.bind('<ButtonPress>', self.start_drawing)
 
 	# https://stackoverflow.com/questions/47996285/how-to-draw-a-line-following-your-mouse-coordinates-with-tkinter
