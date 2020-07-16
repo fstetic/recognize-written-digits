@@ -2,7 +2,11 @@ import tkinter as tk
 from gui import Window
 
 def main():
-	window = Window(tk.Tk().geometry('600x600'))
+	root = tk.Tk()
+	root.geometry("900x600")
+	root.grid_rowconfigure(0,weight=1)
+	root.grid_columnconfigure(0,weight=1)
+	window = Window(root)
 	window.mainloop()
 
 if __name__ == '__main__':

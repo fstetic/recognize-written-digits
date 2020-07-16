@@ -4,11 +4,20 @@ import model
 class Window(tk.Frame):
 	def __init__(self, root=None):
 		super().__init__(root)
-		self.canvas = tk.Canvas(self, bg="white", height=500, width=500)
-		self.canvas.pack()
-		self.pack()
-		self.canvas.bind('<ButtonPress>', self.start_drawing)
+		self.grid(sticky="nsew")
+		self.grid_columnconfigure(0,weight=1)
+		self.grid_columnconfigure(1, weight=2)
+		self.canvas = tk.Canvas(self, bg="white")
+		self.canvas.grid(row=0,column=1, rowspan=10, sticky="nsew")
+		self.labels, self.predictions_text  = list(), list()
+		for i in range(10):
+			self.grid_rowconfigure(i,weight=1)
+			self.predictions_text.append(tk.StringVar())
+			self.predictions_text[i].set("{}: x%".format(i))
+			self.labels.append(tk.Label(self, bg="blue", fg="white", textvariable=self.predictions_text[i]))
+			self.labels[i].grid(row=i,column=0, sticky="nsew")
 		self.matrix_coords = dict()
+		self.canvas.bind('<ButtonPress>', self.start_drawing)
 
 	def start_drawing(self, event):
 		self.canvas.old_coords = None
@@ -27,7 +36,6 @@ class Window(tk.Frame):
 	# https://stackoverflow.com/questions/47996285/how-to-draw-a-line-following-your-mouse-coordinates-with-tkinter
 	def draw_line(self, event):
 		x, y = event.x, event.y
-		self.matrix_coords[(x,y)] = 255
 		if self.canvas.old_coords:
 			x1, y1 = self.canvas.old_coords
 			self.canvas.create_line(x, y, x1, y1)
