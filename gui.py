@@ -1,9 +1,10 @@
 import tkinter as tk
-import model
+import prediction_method
 
 class Window(tk.Frame):
-	def __init__(self, root=None):
+	def __init__(self, model, root=None):
 		super().__init__(root)
+		self.model = model
 		self.grid(sticky="nsew")
 		self.grid_columnconfigure(0,weight=1)
 		self.grid_columnconfigure(1, weight=2)
@@ -30,8 +31,15 @@ class Window(tk.Frame):
 		self.canvas.unbind('<Motion>')
 		self.canvas.unbind('<ButtonPress>')
 		self.canvas.unbind('<ButtonRelease>')
-		model.predict(self.matrix_coords, self.canvas.winfo_height(), self.canvas.winfo_width())
+		predictions = prediction_method.predict(self.model, self.matrix_coords, self.canvas.winfo_height(), self.canvas.winfo_width())
+		self.show_predictions(predictions)
 		self.canvas.bind('<ButtonPress>', self.start_drawing)
+
+	def show_predictions(self, predictions):
+		i = 0
+		for num,prob in predictions.items():
+			self.predictions_text[i].set("{}: {:2.2f}%".format(num,prob))
+			i += 1
 
 	# https://stackoverflow.com/questions/47996285/how-to-draw-a-line-following-your-mouse-coordinates-with-tkinter
 	def draw_line(self, event):
