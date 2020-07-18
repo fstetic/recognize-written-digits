@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
 
 def predict(model, matrix_coords, height, width):
 	np.set_printoptions(suppress=True)  # don't use scientific notation
@@ -13,8 +12,6 @@ def predict(model, matrix_coords, height, width):
 	dilatation = cv2.dilate(np.float32(full_coords), kernel, iterations=2)
 	prediction_image = cv2.resize(dilatation, (28,28))
 	prediction = model.predict(np.expand_dims(prediction_image, axis=0))
-	plt.imshow(prediction_image)
-	plt.show()
 	return_predictions = dict()
 	for i in range(10):
 		return_predictions[i] = prediction[0][i]*100
