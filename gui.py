@@ -13,13 +13,14 @@ class Window(tk.Frame):
 		self.canvas = tk.Canvas(self, bg="white")
 		self.canvas.grid(row=0,column=1, rowspan=10, sticky="nsew")
 		self.labels, self.predictions_text  = list(), list()
+		# makes 10 labels numbered 0-9 and their text variables for displaying predictions
 		for i in range(10):
 			self.grid_rowconfigure(i,weight=1)
 			self.predictions_text.append(tk.StringVar())
 			self.predictions_text[i].set("{}: %".format(i))
 			self.labels.append(tk.Label(self, bg="DeepSkyBlue2", fg="floral white", textvariable=self.predictions_text[i], font=tkfont.Font(family="likhan", size=25, weight='bold')))
 			self.labels[i].grid(row=i,column=0, sticky="nsew")
-		self.number_coords = dict()
+		self.number_coords = dict()     # dictionary for saving coordinates of points used for drawing a number
 		self.canvas.bind('<ButtonPress>', self.start_drawing)
 
 	def start_drawing(self, event):
@@ -44,6 +45,7 @@ class Window(tk.Frame):
 			i += 1
 
 	# https://stackoverflow.com/questions/47996285/how-to-draw-a-line-following-your-mouse-coordinates-with-tkinter
+	# draws a line between two points and saves all points in-between so the picture can be reconstructed
 	def draw_line(self, event):
 		x, y = event.x, event.y
 		if self.canvas.old_coords:
@@ -54,6 +56,7 @@ class Window(tk.Frame):
 		self.canvas.old_coords = x, y
 
 	# https://stackoverflow.com/questions/23930274/list-of-coordinates-between-irregular-points-in-python
+	# returns all points used to draw a line between two points using Bresenham's line algorithm
 	@staticmethod
 	def get_points_in_line(x0, y0, x1, y1):
 		points_in_line = []
