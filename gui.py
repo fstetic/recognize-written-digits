@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.font as tkfont
 import prediction_method
 
 class Window(tk.Frame):
@@ -15,7 +16,7 @@ class Window(tk.Frame):
 			self.grid_rowconfigure(i,weight=1)
 			self.predictions_text.append(tk.StringVar())
 			self.predictions_text[i].set("{}: x%".format(i))
-			self.labels.append(tk.Label(self, bg="blue", fg="white", textvariable=self.predictions_text[i]))
+			self.labels.append(tk.Label(self, bg="DeepSkyBlue2", fg="floral white", textvariable=self.predictions_text[i], font=tkfont.Font(family="likhan", size=25, weight='bold')))
 			self.labels[i].grid(row=i,column=0, sticky="nsew")
 		self.matrix_coords = dict()
 		self.canvas.bind('<ButtonPress>', self.start_drawing)
