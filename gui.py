@@ -3,6 +3,7 @@ import tkinter.font as tkfont
 import prediction_method
 
 class Window(tk.Frame):
+
 	def __init__(self, model, root=None):
 		super().__init__(root)
 		self.model = model
@@ -15,15 +16,15 @@ class Window(tk.Frame):
 		for i in range(10):
 			self.grid_rowconfigure(i,weight=1)
 			self.predictions_text.append(tk.StringVar())
-			self.predictions_text[i].set("{}: x%".format(i))
+			self.predictions_text[i].set("{}: %".format(i))
 			self.labels.append(tk.Label(self, bg="DeepSkyBlue2", fg="floral white", textvariable=self.predictions_text[i], font=tkfont.Font(family="likhan", size=25, weight='bold')))
 			self.labels[i].grid(row=i,column=0, sticky="nsew")
-		self.matrix_coords = dict()
+		self.number_coords = dict()
 		self.canvas.bind('<ButtonPress>', self.start_drawing)
 
 	def start_drawing(self, event):
 		self.canvas.old_coords = None
-		self.matrix_coords.clear()
+		self.number_coords.clear()
 		self.canvas.delete("all")
 		self.canvas.bind('<Motion>', self.draw_line)
 		self.canvas.bind('<ButtonRelease>', self.stop_drawing)
@@ -32,7 +33,7 @@ class Window(tk.Frame):
 		self.canvas.unbind('<Motion>')
 		self.canvas.unbind('<ButtonPress>')
 		self.canvas.unbind('<ButtonRelease>')
-		predictions = prediction_method.predict(self.model, self.matrix_coords, self.canvas.winfo_height(), self.canvas.winfo_width())
+		predictions = prediction_method.predict(self.model, self.number_coords, self.canvas.winfo_height(), self.canvas.winfo_width())
 		self.show_predictions(predictions)
 		self.canvas.bind('<ButtonPress>', self.start_drawing)
 
@@ -48,12 +49,11 @@ class Window(tk.Frame):
 		if self.canvas.old_coords:
 			x1, y1 = self.canvas.old_coords
 			self.canvas.create_line(x, y, x1, y1)
-			for p in self.get_points_in_line(x,y, x1, y1):
-				self.matrix_coords[p] = 1
+			for p in self.get_points_in_line(x, y, x1, y1):
+				self.number_coords[p] = 1
 		self.canvas.old_coords = x, y
 
 	# https://stackoverflow.com/questions/23930274/list-of-coordinates-between-irregular-points-in-python
-	# Bresenham for getting all points
 	@staticmethod
 	def get_points_in_line(x0, y0, x1, y1):
 		points_in_line = []
