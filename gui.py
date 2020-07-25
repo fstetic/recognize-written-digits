@@ -7,6 +7,7 @@ class Window(tk.Frame):
 	def __init__(self, model, root=None):
 		super().__init__(root)
 		self.model = model
+		self.winfo_toplevel().title("Recognize digits")
 		self.grid(sticky="nsew")
 		self.grid_columnconfigure(0,weight=1)
 		self.grid_columnconfigure(1, weight=2)
