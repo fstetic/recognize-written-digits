@@ -13,6 +13,9 @@ def main():
 	root.grid_rowconfigure(0,weight=1)
 	root.grid_columnconfigure(0,weight=1)
 
+	icon = tk.PhotoImage(file="icon.png")
+	root.iconphoto(True, icon)
+
 	window = Window(model, root)
 	window.mainloop()
 
