@@ -7,7 +7,7 @@ def main():
 	model = tf.keras.models.load_model('first_model')
 
 	root = tk.Tk()  # initialize a window
-	root.geometry("900x600")
+	root.geometry("900x600+{}+{}".format(int(root.winfo_screenwidth()/2-450), int(root.winfo_screenheight()/2-300)))
 
 	# makes elements behave normally when window is resized
 	root.grid_rowconfigure(0,weight=1)
