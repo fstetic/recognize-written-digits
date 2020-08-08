@@ -9,6 +9,6 @@ def predict(model, points_coords, height, width):
 	dilation = cv2.dilate(np.float32(full_image_array), kernel, iterations=2)     # increase number thickness
 	image_to_predict = cv2.resize(dilation, (28,28))                              # resize to dimensions used by model
 
-	prediction = model.predict(np.expand_dims(image_to_predict, axis=0))    # expand to (1,28,28) array
+	prediction = model.predict(np.expand_dims(image_to_predict, axis=(0,3)))    # expand to (1,28,28,1) array
 	return_predictions = {i: prediction[0][i]*100 for i in range(10)}       # get percentages of predictions for each class
 	return {k: v for k, v in sorted(return_predictions.items(), key=lambda item: item[1], reverse=True)}
