@@ -1,0 +1,38 @@
+body {
+    background-color: darkseagreen;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 2%;
+    color: forestgreen;
+    font-size: 36px;
+}
+
+p {
+    text-align: center;
+    color: forestgreen;
+    font-size: 24px;
+}
+.outer {
+    width:100%;
+    height:500px;
+    display:flex;
+    justify-content:center;
+}
+.inner {
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+label {
+    font-size:32px;
+    padding:7px 0;
+    color:forestgreen;
+}
+canvas {
+    width:600px;
+    height:500px;
+    background-color:white;
+    border: 1px solid darkgreen;
+}
