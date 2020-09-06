@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='getImgAndUpdateLabels.js') }}"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <head>
-    <meta charset="UTF-8">
-    <title>Predict written digits</title>
+	<meta charset="UTF-8">
+	<title>Predict written digits</title>
 </head>
-<body>
-    <h1>Predict digits</h1>
-    <p>Write a digit with your mouse and see output of a neural net</p>
-    <div class="outer">
-        <div class="inner">
-        <label for="canvas">X1:%</label>
-        <label for="canvas">X2:%</label>
-        <label for="canvas">X3:%</label>
-        <label for="canvas">X4:%</label>
-        <label for="canvas">X5:%</label>
-        <label for="canvas">X6:%</label>
-        <label for="canvas">X7:%</label>
-        <label for="canvas">X8:%</label>
-        <label for="canvas">X9:%</label>
-        <label for="canvas">X10:%</label>
-        </div>
-        <canvas id="canvas"></canvas>
-    </div>
+<body onload="init()">
+<h1>Predict digits</h1>
+<p>Write a digit with your mouse and see output of a neural net</p>
+<div class="outer">
+	<div class="inner">
+		<label id="0" for="canvas">0:%</label>
+		<label id="1" for="canvas">1:%</label>
+		<label id="2" for="canvas">2:%</label>
+		<label id="3" for="canvas">3:%</label>
+		<label id="4" for="canvas">4:%</label>
+		<label id="5" for="canvas">5:%</label>
+		<label id="6" for="canvas">6:%</label>
+		<label id="7" for="canvas">7:%</label>
+		<label id="8" for="canvas">8:%</label>
+		<label id="9" for="canvas">9:%</label>
+	</div>
+	<canvas id="canvas" width="600" height="500"></canvas>
+</div>
 </body>
 </html>

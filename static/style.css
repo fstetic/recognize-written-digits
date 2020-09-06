@@ -1,38 +1,38 @@
 body {
-    background-color: darkseagreen;
+	background-color: darkseagreen;
 }
 
 h1 {
-    text-align: center;
-    margin-top: 2%;
-    color: forestgreen;
-    font-size: 36px;
+	text-align: center;
+	margin-top: 2%;
+	color: forestgreen;
+	font-size: 36px;
+	font-family: sans-serif;
 }
 
 p {
-    text-align: center;
-    color: forestgreen;
-    font-size: 24px;
+	text-align: center;
+	color: forestgreen;
+	font-size: 24px;
+	font-family: sans-serif;
 }
 .outer {
-    width:100%;
-    height:500px;
-    display:flex;
-    justify-content:center;
+	width:100%;
+	height:500px;
+	display:flex;
+	justify-content:center;
 }
 .inner {
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
 }
 label {
-    font-size:32px;
-    padding:7px 0;
-    color:forestgreen;
+	font-size:32px;
+	padding:5px 10px;
+	color:forestgreen;
+	font-family: sans-serif;
 }
 canvas {
-    width:600px;
-    height:500px;
-    background-color:white;
-    border: 1px solid darkgreen;
+	background-color: white;
 }
