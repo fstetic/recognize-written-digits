@@ -44,7 +44,7 @@ function stopDrawing(event){
 		data: JSON.stringify(coords)
 	}).then(function(response){
 		for(let i=0; i<Object.keys(response).length;i++){
-			document.getElementById(i.toString()).textContent = `${i}: ${Math.round(response[i]*100)/100}%`
+			document.getElementById(i.toString()).textContent = `${i}: ${Math.round(response[i]*100)/100}%`	// update labels with predictions
 		}
 	})
 	init();

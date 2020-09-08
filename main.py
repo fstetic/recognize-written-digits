@@ -14,7 +14,7 @@ def create_app():
 
 	@app.route('/script', methods=['POST'])
 	def predict():
-		data = request.get_json()
+		data = request.get_json()   # get list of coordinates
 		prediction = prediction_method.predict(model, data, 500, 600)
 		return jsonify(prediction)
 
