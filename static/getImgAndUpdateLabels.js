@@ -11,16 +11,29 @@ function init(){
 function startDrawing(event){
 	context.clearRect(0,0,canvas.width,canvas.height);
 	coords = []
-	prevX = event.clientX - canvas.offsetLeft;
-	prevY = event.clientY - canvas.offsetTop;
-	canvas.addEventListener("mousemove", draw);
-	canvas.addEventListener("touchmove", draw);
-	canvas.addEventListener("mouseup", stopDrawing);
-	canvas.addEventListener("touchend", stopDrawing);
+	if(event.type === "mousedown") {
+		prevX = event.clientX - canvas.offsetLeft;
+		prevY = event.clientY - canvas.offsetTop;
+		canvas.addEventListener("mousemove", draw);
+		canvas.addEventListener("mouseup", stopDrawing);
+	} else{
+		prevX = Math.round(event.touches[0].clientX - canvas.offsetLeft)
+		prevY = Math.round(event.touches[0].clientY - canvas.offsetTop)
+		canvas.addEventListener("touchmove", draw);
+		canvas.addEventListener("touchend", stopDrawing);
+	}
+	coords.push({row:prevX, column:prevY})
+
 }
 function draw(event){
-	let x = event.clientX - canvas.offsetLeft
-	let y = event.clientY - canvas.offsetTop
+	let x,y;
+	if(event.type === "mousemove") {
+		x = event.clientX - canvas.offsetLeft
+		y = event.clientY - canvas.offsetTop
+	} else {
+		x = Math.round(event.touches[0].clientX - canvas.offsetLeft)
+		y = Math.round(event.touches[0].clientY - canvas.offsetTop)
+	}
 	let id = {
 		row: x,
 		column: y
@@ -38,10 +51,13 @@ function draw(event){
 }
 
 function stopDrawing(event){
-	canvas.removeEventListener("mousedown", startDrawing)
-	canvas.removeEventListener("touchstart", startDrawing)
-	canvas.removeEventListener("mousemove", draw)
-	canvas.removeEventListener("touchmove", draw)
+	if(event.type === "mouseup") {
+		canvas.removeEventListener("mousedown", startDrawing)
+		canvas.removeEventListener("mousemove", draw)
+	} else {
+		canvas.removeEventListener("touchstart", startDrawing)
+		canvas.removeEventListener("touchmove", draw)
+	}
 	$.ajax({
 		url: '/script',
 		method: 'POST',
