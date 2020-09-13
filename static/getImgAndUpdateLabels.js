@@ -5,6 +5,7 @@ function init(){
 	canvas = document.getElementById("canvas");
 	context = canvas.getContext("2d");
 	canvas.addEventListener("mousedown", startDrawing);
+	canvas.addEventListener("touchstart", startDrawing);
 }
 
 function startDrawing(event){
@@ -13,7 +14,9 @@ function startDrawing(event){
 	prevX = event.clientX - canvas.offsetLeft;
 	prevY = event.clientY - canvas.offsetTop;
 	canvas.addEventListener("mousemove", draw);
+	canvas.addEventListener("touchmove", draw);
 	canvas.addEventListener("mouseup", stopDrawing);
+	canvas.addEventListener("touchend", stopDrawing);
 }
 function draw(event){
 	let x = event.clientX - canvas.offsetLeft
@@ -36,7 +39,9 @@ function draw(event){
 
 function stopDrawing(event){
 	canvas.removeEventListener("mousedown", startDrawing)
+	canvas.removeEventListener("touchstart", startDrawing)
 	canvas.removeEventListener("mousemove", draw)
+	canvas.removeEventListener("touchmove", draw)
 	$.ajax({
 		url: '/script',
 		method: 'POST',
