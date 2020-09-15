@@ -1,14 +1,12 @@
 from flask import Flask, render_template, request, jsonify
 import prediction_method
 import tensorflow as tf
-global model    # global is needed so model can be loaded only once
 
+model = tf.keras.models.load_model('model')  # global is needed so model can be loaded only once
 app = Flask(__name__, instance_relative_config=True)
 
 @app.route('/')
 def start():
-	global model
-	model = tf.keras.models.load_model('model')
 	return render_template("template.html")
 
 @app.route('/script', methods=['POST'])
